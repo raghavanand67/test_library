@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "976089196749",
+    "project_id": "library-management-syste-90990",
+    "storage_bucket": "library-management-syste-90990.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:976089196749:android:59d8892f68bea62d126184",
+        "android_client_info": {
+          "package_name": "com.company.libraryapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "976089196749-90umgsste7qik979g5s7rqqfhdjo6ce8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcx5cPQLUWjr8r5felAUkcH_bBjoUsCcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "976089196749-90umgsste7qik979g5s7rqqfhdjo6ce8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
