@@ -14,7 +14,7 @@ public class User {
     private List<Integer> fine = new ArrayList<Integer>();
     private List<Integer> re = new ArrayList<Integer>();
     private List<Timestamp> date = new ArrayList<Timestamp>();
-    private int enroll;
+    private String enroll;
     private int card;
     private int type;
 
@@ -49,7 +49,7 @@ public class User {
 
 
 
-    public User(String name, String email, int enroll, int card, int type) {
+    public User(String name, String email, String enroll, int card, int type) {
         this.name = name;
         this.email = email;
         this.enroll = enroll;
@@ -105,11 +105,11 @@ public class User {
         this.date = date;
     }
 
-    public int getEnroll() {
+    public String getEnroll() {
         return enroll;
     }
 
-    public void setEnroll(int enroll) {
+    public void setEnroll(String enroll) {
         this.enroll = enroll;
     }
 

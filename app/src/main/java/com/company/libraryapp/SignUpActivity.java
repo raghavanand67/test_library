@@ -326,10 +326,9 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 {
                     String id=editID.getEditText().getText().toString().trim();
                     String name=editName.getEditText().getText().toString().trim();
+                    String enroll=editEnrollNo.getEditText().getText().toString().trim();
                     if(type1==0)
                     {
-
-                        int enroll=Integer.parseInt(editEnrollNo.getEditText().getText().toString().trim());
                         int card=Integer.parseInt(editCardNo.getEditText().getText().toString().trim());
                         db.collection("User").document(id).set(new User(name,id,enroll,card,type1)).addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
