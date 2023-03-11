@@ -43,36 +43,37 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         db=FirebaseFirestore.getInstance();
 
        if(firebaseAuth.getCurrentUser()!=null) {
-           progressDialog.setMessage("Please Wait... Signing You in !");
-           progressDialog.show();
-           String cur = firebaseAuth.getCurrentUser().getEmail().trim();
-           db.document("User/"+cur).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-               @Override
-               public void onSuccess(DocumentSnapshot documentSnapshot) {
-                   User obj=documentSnapshot.toObject(User.class);
-                   if(obj.getType()==0)
-                   {
-                       progressDialog.cancel();
-                       startActivity(new Intent(getApplicationContext(),UserHome.class));
-                       finish();
-
-                   }
-                   else
-                   {
-                       progressDialog.cancel();
-                       startActivity(new Intent(getApplicationContext(),AdminHome.class));
-                       finish();
-
-                   }
-
-               }
-           }).addOnFailureListener(new OnFailureListener() {
-               @Override
-               public void onFailure(@NonNull Exception e) {
-                   progressDialog.cancel();
-                   Toast.makeText(SignInActivity.this, "Please Sign in Again", Toast.LENGTH_SHORT).show();
-               }
-           });
+           firebaseAuth.signOut();
+//           progressDialog.setMessage("Please Wait... Signing You in !");
+//           progressDialog.show();
+//           String cur = firebaseAuth.getCurrentUser().getEmail().trim();
+//           db.document("User/"+cur).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//               @Override
+//               public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                   User obj=documentSnapshot.toObject(User.class);
+//                   if(obj.getType()==0)
+//                   {
+//                       progressDialog.cancel();
+//                       startActivity(new Intent(getApplicationContext(),UserHome.class));
+//                       finish();
+//
+//                   }
+//                   else
+//                   {
+//                       progressDialog.cancel();
+//                       startActivity(new Intent(getApplicationContext(),AdminHome.class));
+//                       finish();
+//
+//                   }
+//
+//               }
+//           }).addOnFailureListener(new OnFailureListener() {
+//               @Override
+//               public void onFailure(@NonNull Exception e) {
+//                   progressDialog.cancel();
+//                   Toast.makeText(SignInActivity.this, "Please Sign in Again", Toast.LENGTH_SHORT).show();
+//               }
+//           });
 
         }
         buttonSignIn.setOnClickListener(this);

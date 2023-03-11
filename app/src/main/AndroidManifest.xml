@@ -24,8 +24,8 @@
         <activity android:name="com.company.libraryapp.AdminUpdateBook" />
         <activity android:name="com.company.libraryapp.AdminRemoveBook" />
         <activity android:name="com.company.libraryapp.AdminAddBook" />
-        <activity android:name="com.company.libraryapp.UserHome" />
-        <activity android:name="com.company.libraryapp.AdminHome" />
+        <activity android:name="com.company.libraryapp.UserHome"/>
+        <activity android:name="com.company.libraryapp.AdminHome"/>
         <activity android:name="com.company.libraryapp.SignUpActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,13 +34,6 @@
             </intent-filter>
         </activity>
         <activity android:name="com.company.libraryapp.SignInActivity"/>
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-
 
         <service android:name="com.company.libraryapp.MyFirebaseMessagingService">
             <intent-filter>
