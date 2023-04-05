@@ -52,6 +52,7 @@ public class AdminIssueBook extends AppCompatActivity {
         editCardNo1 = (TextInputLayout) findViewById(R.id.editCardNo1);
         db=FirebaseFirestore.getInstance();
         p = new ProgressDialog(this);
+
         issueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,18 +116,32 @@ public class AdminIssueBook extends AppCompatActivity {
         return res1;
     }
 
+//     + Integer.parseInt(editBid3.getEditText().getText().toString().trim()) / 100).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//        @Override
+//        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+
+
     private boolean getBook() {
 
-        db.document("Book/" + Integer.parseInt(editBid3.getEditText().getText().toString().trim()) / 100).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("Book").whereEqualTo("id", Integer.parseInt(editBid3.getEditText().getText().toString().trim())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    if (task.getResult().exists()) {
+                    if (task.getResult().size()==1) {
                         res2 = true;
-                        B1 = task.getResult().toObject(Book.class);
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            B1 = doc.toObject(Book.class);
+                        }
+//                        Toast.makeText(AdminIssueBook.this, "Book found", Toast.LENGTH_SHORT).show();
+//                        p.cancel();
                     } else {
+
+                        p.cancel();
                         res2 = false;
                         p.cancel();
+//                        String msg1 = String.valueOf(res2);
+//                        Toast.makeText(AdminIssueBook.this, msg1, Toast.LENGTH_SHORT).show();
                         Toast.makeText(AdminIssueBook.this, "No Such Book !", Toast.LENGTH_SHORT).show();
                     }
                 } else {
@@ -148,9 +163,14 @@ public class AdminIssueBook extends AppCompatActivity {
         }
         p.setMessage("Please Wait !");
         p.show();
+//        boolean result = getBook();
+//        String msg = String.valueOf(result);
+//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+
         if (getBook()&getUser())
         {
-
+//            Toast.makeText(this, "Book and User found", Toast.LENGTH_SHORT).show();
+            p.cancel();
             if (U.getBook().size() >= 5) {
                 p.cancel();
                 Toast.makeText(AdminIssueBook.this, "User Already Has 5 books issued !", Toast.LENGTH_SHORT).show();
