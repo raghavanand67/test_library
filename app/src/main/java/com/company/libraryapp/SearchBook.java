@@ -111,6 +111,38 @@ public class SearchBook extends AppCompatActivity {
 
             }
 
+            case 9:{
+                mode=1;
+                key=intent.getStringExtra("bauthor");
+                query=db.collection("Book");
+                break;
+
+            }
+
+            case 10:{
+
+                mode=1;
+                key=intent.getStringExtra("bauthor");
+                query=db.collection("Book").whereGreaterThan("available",0);
+                break;
+            }
+
+            case 11:{
+                mode=1;
+
+                key=intent.getStringExtra("bauthor");
+                query=db.collection("Book").whereEqualTo("type",intent.getStringExtra("btype"));
+                break;
+            }
+
+            case 12:{
+                mode=1;
+                key=intent.getStringExtra("bauthor");
+                query=db.collection("Book").whereEqualTo("type",intent.getStringExtra("btype")).whereGreaterThan("available",0);
+                break;
+
+            }
+
         }
         //progressDialog.show();
         /*query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {

@@ -29,6 +29,7 @@ public class BookAdapter extends FirestoreRecyclerAdapter<Book, BookAdapter.Book
         holder.bookType.setText("Category : "+model.getType());
         holder.bookAvailable.setText("Available : "+String.valueOf(model.getAvailable()));
         holder.bookName.setText("Title : "+model.getTitle());
+        holder.bookAuthor.setText("Author : "+model.getAuthor());
         holder.bookTotal.setText("Total : "+String.valueOf(model.getTotal()));
 
 
@@ -55,7 +56,7 @@ public class BookAdapter extends FirestoreRecyclerAdapter<Book, BookAdapter.Book
     class Book extends RecyclerView.ViewHolder
     {
 
-        TextView bookName,bookId,bookType,bookAvailable,bookTotal;
+        TextView bookName,bookId,bookType,bookAvailable,bookTotal,bookAuthor;
 
 
         public Book(@NonNull View itemView) {
@@ -63,6 +64,7 @@ public class BookAdapter extends FirestoreRecyclerAdapter<Book, BookAdapter.Book
             bookId= itemView.findViewById(R.id.bookId);
             bookAvailable=itemView.findViewById(R.id.bookAvailable);
             bookName=itemView.findViewById(R.id.bookName);
+            bookAuthor=itemView.findViewById(R.id.bookAuthor);
             bookType=itemView.findViewById(R.id.bookType);
             bookTotal=itemView.findViewById(R.id.bookTotal);
         }

@@ -34,6 +34,7 @@ public class AdminAddBook extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_admin_add_book);
         FirebaseApp.initializeApp(this);
         editTitle=(TextInputLayout)findViewById(R.id.editTitle);
+        editAuthor = (TextInputLayout)findViewById(R.id.editAuthor);
         editBid=(TextInputLayout) findViewById(R.id.editBid);
         editUnits=(TextInputLayout)findViewById(R.id.editUnits);
         spinner1=(Spinner)findViewById(R.id.spinner1);
@@ -73,6 +74,21 @@ public class AdminAddBook extends AppCompatActivity implements View.OnClickListe
         else
         {
             editTitle.setErrorEnabled(false);
+            return false;
+        }
+    }
+
+    private boolean verifyAuthor()
+    {
+        String t=editAuthor.getEditText().getText().toString().trim();
+        if(t.isEmpty())
+        {   editAuthor.setErrorEnabled(true);
+            editAuthor.setError("Title Required");
+            return true;
+        }
+        else
+        {
+            editAuthor.setErrorEnabled(false);
             return false;
         }
     }
@@ -136,9 +152,10 @@ public class AdminAddBook extends AppCompatActivity implements View.OnClickListe
                     if((task.isSuccessful())&&(task.getResult().exists()==false))
                     {    String id=editBid.getEditText().getText().toString().trim();
                         String title=editTitle.getEditText().getText().toString().trim();
+                        String author=editAuthor.getEditText().getText().toString().trim();
                         String units=editUnits.getEditText().getText().toString().trim();
                         int id1=Integer.parseInt(id),unit1=Integer.parseInt(units);
-                        Book b=new Book(title.toUpperCase(),type,unit1,id1);
+                        Book b=new Book(title.toUpperCase(), author.toUpperCase(), type, unit1,id1);
                         db.document("Book/"+id1).set(b).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
@@ -166,6 +183,7 @@ public class AdminAddBook extends AppCompatActivity implements View.OnClickListe
     }
 
     private TextInputLayout editTitle;
+    private TextInputLayout editAuthor;
     private TextInputLayout editBid;
     private TextInputLayout editUnits;
     private Spinner spinner1;

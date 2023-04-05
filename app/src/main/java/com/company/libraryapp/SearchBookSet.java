@@ -18,6 +18,7 @@ public class SearchBookSet extends AppCompatActivity {
 
 
     private TextInputLayout editTitle3;
+    private TextInputLayout editAuthor3;
     private TextInputLayout editBid3;
     private Spinner spinner3;
     private Button button3;
@@ -34,6 +35,19 @@ public class SearchBookSet extends AppCompatActivity {
     private boolean verifyTitle()
     {
         String t=editTitle3.getEditText().getText().toString().trim();
+        if(t.isEmpty())
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private boolean verifyAuthor()
+    {
+        String t=editAuthor3.getEditText().getText().toString().trim();
         if(t.isEmpty())
         {
             return false;
@@ -74,6 +88,7 @@ public class SearchBookSet extends AppCompatActivity {
         setContentView(R.layout.activity_search_book_set);
         FirebaseApp.initializeApp(this);
         editTitle3=(TextInputLayout)findViewById(R.id.editTitle3);
+        editAuthor3=(TextInputLayout)findViewById(R.id.editAuthor3);
         editBid3=(TextInputLayout) findViewById(R.id.editBid3);
         spinner3=(Spinner)findViewById(R.id.spinner3);
         button3=(Button)findViewById(R.id.button3);
@@ -100,7 +115,7 @@ public class SearchBookSet extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(!(verifyCategory()|verifyTitle()|verifyBid()))
+                if(!(verifyCategory()|verifyTitle()|verifyBid()|verifyAuthor()))
                 {
                     Toast.makeText(SearchBookSet.this, "Select at least parameter !", Toast.LENGTH_SHORT).show();
                     return;
@@ -132,6 +147,15 @@ public class SearchBookSet extends AppCompatActivity {
                     startActivity(intent);
 
                 }
+               else if(verifyAuthor()&&verifyCategory()&&checkBox.isChecked())
+               {
+
+                   intent.putExtra("id",3);
+                   intent.putExtra("bauthor",editAuthor3.getEditText().getText().toString().trim());
+                   intent.putExtra("btype",type);
+                   startActivity(intent);
+
+               }
                 else if(verifyTitle()&&verifyCategory()&&!checkBox.isChecked())
                 {
 
@@ -141,6 +165,17 @@ public class SearchBookSet extends AppCompatActivity {
                     startActivity(intent);
 
                 }
+
+               else if(verifyAuthor()&&verifyCategory()&&!checkBox.isChecked())
+               {
+
+                   intent.putExtra("id",4);
+                   intent.putExtra("bauthor",editAuthor3.getEditText().getText().toString().trim());
+                   intent.putExtra("btype",type);
+                   startActivity(intent);
+
+               }
+
                 else if(verifyTitle()&&!verifyCategory()&&checkBox.isChecked())
                 {
 
@@ -149,6 +184,16 @@ public class SearchBookSet extends AppCompatActivity {
                     startActivity(intent);
 
                 }
+
+               else if(verifyAuthor()&&!verifyCategory()&&checkBox.isChecked())
+               {
+
+                   intent.putExtra("id",5);
+                   intent.putExtra("bauthor",editAuthor3.getEditText().getText().toString().trim());
+                   startActivity(intent);
+
+               }
+
                 else if(verifyTitle()&&!verifyCategory()&&!checkBox.isChecked())
                 {
 
@@ -157,6 +202,16 @@ public class SearchBookSet extends AppCompatActivity {
                     startActivity(intent);
 
                 }
+
+               else if(verifyAuthor()&&!verifyCategory()&&!checkBox.isChecked())
+               {
+
+                   intent.putExtra("id",6);
+                   intent.putExtra("bauthor",editAuthor3.getEditText().getText().toString().trim());
+                   startActivity(intent);
+
+               }
+
                 else if(!verifyTitle()&&verifyCategory()&&checkBox.isChecked())
                 {
 
@@ -165,6 +220,16 @@ public class SearchBookSet extends AppCompatActivity {
                     startActivity(intent);
 
                 }
+
+               else if(!verifyAuthor()&&verifyCategory()&&checkBox.isChecked())
+               {
+
+                   intent.putExtra("id",7);
+                   intent.putExtra("btype",type);
+                   startActivity(intent);
+
+               }
+
                 else if(!verifyTitle()&&verifyCategory()&&!checkBox.isChecked())
                 {
 
@@ -173,6 +238,15 @@ public class SearchBookSet extends AppCompatActivity {
                     startActivity(intent);
 
                 }
+
+               else if(!verifyAuthor()&&verifyCategory()&&!checkBox.isChecked())
+               {
+
+                   intent.putExtra("id",8);
+                   intent.putExtra("btype",type);
+                   startActivity(intent);
+
+               }
             }
         });
     }
