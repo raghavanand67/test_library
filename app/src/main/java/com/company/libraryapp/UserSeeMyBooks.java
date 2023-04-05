@@ -6,7 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -14,6 +16,8 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -74,12 +78,13 @@ public class UserSeeMyBooks extends AppCompatActivity {
     {
         j=0;
 
-        db.document("Book/"+U.getBook().get(i)/100).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("Book"+U.getBook().get(i)/100).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
 
-                B=task.getResult().toObject(Book.class);
+                for (QueryDocumentSnapshot doc : task.getResult())
+                    B = doc.toObject(Book.class);
 
                 Date d = new Date();
                 d=U.getDate().get(j).toDate();
@@ -103,16 +108,21 @@ public class UserSeeMyBooks extends AppCompatActivity {
     {
 
 
-        db.document("User/" + firebaseAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("User" + firebaseAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
 
 
-                    U = task.getResult().toObject(User.class);
+                    for (QueryDocumentSnapshot doc : task.getResult())
+                        U = doc.toObject(User.class);
 
+                    List<Integer> books = U.getBook();
+                    String bookList = TextUtils.join(", ", books);
+                    Toast.makeText(UserSeeMyBooks.this, bookList, Toast.LENGTH_LONG).show();
                     if (!U.getBook().isEmpty()) {
 
+                        Toast.makeText(UserSeeMyBooks.this, "eh", Toast.LENGTH_SHORT).show();
                         l = U.getBook();
                         for (i = 0; i < l.size(); i++) {
 

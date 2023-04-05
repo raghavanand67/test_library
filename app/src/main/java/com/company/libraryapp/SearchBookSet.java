@@ -117,7 +117,7 @@ public class SearchBookSet extends AppCompatActivity {
 
                 if(!(verifyCategory()|verifyTitle()|verifyBid()|verifyAuthor()))
                 {
-                    Toast.makeText(SearchBookSet.this, "Select at least parameter !", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SearchBookSet.this, "Enter at least one valid value", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 Intent intent=new Intent(getApplicationContext(),SearchBook.class);
