@@ -24,7 +24,6 @@ import java.util.List;
 public class AdminReturnBook extends AppCompatActivity {
 
 
-
     private Button returnButton;
     private TextInputLayout editCardNo2, editBid4;
     private FirebaseFirestore db;
@@ -32,6 +31,7 @@ public class AdminReturnBook extends AppCompatActivity {
     private boolean res1, res2;
     private User U = new User();
     private Book B = new Book();
+
 
     @Override
     public void onBackPressed() {
@@ -84,136 +84,150 @@ public class AdminReturnBook extends AppCompatActivity {
     }
 
 
-    private boolean getUser() {
-        db.collection("User").whereEqualTo("card", Integer.parseInt(editCardNo2.getEditText().getText().toString().trim())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void getUser(int cardNo, final OnUserReceivedListener listener) {
+        db.collection("User").whereEqualTo("card", cardNo).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                 if (task.isSuccessful()) {
                     if (task.getResult().size() == 1) {
-                        res1 = true;
                         for (QueryDocumentSnapshot doc : task.getResult())
                             U = doc.toObject(User.class);
-                    } else {
 
-                        res1 = false;
-                        p.cancel();
+                        Toast.makeText(AdminReturnBook.this, "User found", Toast.LENGTH_LONG).show();
+                        listener.onUserReceived(true);
+                    } else {
                         Toast.makeText(AdminReturnBook.this, "No Such User !", Toast.LENGTH_SHORT).show();
+                        listener.onUserReceived(false);
                     }
                 } else {
-                    res1 = false;
-                    p.cancel();
                     Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                    listener.onUserReceived(false);
                 }
-
-
             }
         });
-
-        return res1;
     }
 
-    private boolean getBook() {
-        db.document("Book/" + Integer.parseInt(editBid4.getEditText().getText().toString().trim()) / 100).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+    private void getBook(int bookId, final OnBookReceivedListener listener) {
+        db.collection("Book").whereEqualTo("id", bookId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    if (task.getResult().exists()) {
-                        res2 = true;
-                        B = task.getResult().toObject(Book.class);
+                    if (task.getResult().size() == 1) {
+                        for (QueryDocumentSnapshot doc : task.getResult()) {
+                            B = doc.toObject(Book.class);
+                        }
+                        Toast.makeText(AdminReturnBook.this, "Book found", Toast.LENGTH_SHORT).show();
+                        // Call the method that processes the book
+                        listener.onBookReceived(true);
                     } else {
-                        res2 = false;
-                        p.cancel();
                         Toast.makeText(AdminReturnBook.this, "No Such Book !", Toast.LENGTH_SHORT).show();
+                        listener.onBookReceived(false);
                     }
                 } else {
-                    res2 = false;
-                    p.cancel();
                     Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                    listener.onBookReceived(false);
                 }
             }
         });
-
-        return res2;
     }
-    
-    
-    private void returnBook()
-    {
 
-        if (verifyBid() | verifyCard())
-            return;
-
+    private void returnBook() {
+        int cardNo = Integer.parseInt(editCardNo2.getEditText().getText().toString().trim());
+        final int bookId = Integer.parseInt(editBid4.getEditText().getText().toString().trim());
         p.setMessage("Please Wait !");
         p.show();
-        if (getUser()&getBook())
-        {
 
-
-            if(!U.getBook().contains(Integer.parseInt(editBid4.getEditText().getText().toString().trim())))
-            {
-                p.cancel();
-                Toast.makeText(AdminReturnBook.this, "Given Book is not issued to the User !", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            List<Integer> l = new ArrayList<Integer>();
-            l = U.getBook();
-            int index=l.indexOf(Integer.parseInt(editBid4.getEditText().getText().toString().trim()));
-            l.remove(index);
-            U.setBook(l);
-
-            l = U.getFine();
-            U.setLeft_fine(U.getLeft_fine()+l.get(index));
-            l.remove(index);
-            U.setFine(l);
-
-            l = U.getRe();
-            l.remove(index);
-            U.setRe(l);
-
-            List<Timestamp> l1 = new ArrayList<>();
-            l1 = U.getDate();
-            l1.remove(index);
-            U.setDate(l1);
-
-            db.document("User/" + U.getEmail()).set(U).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-
-                        int i;
-                        B.setAvailable(B.getAvailable()+1);
-                        List<Integer> l1=new ArrayList<>();
-                        l1=B.getUnit();
-                        i=l1.indexOf(Integer.parseInt(editBid4.getEditText().getText().toString().trim()) % 100);
-                        l1.remove(i);
-                        B.setUnit(l1);
-
-                        db.document("Book/" + B.getId()).set(B).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-
+        getUser(cardNo, new OnUserReceivedListener() {
+            @Override
+            public void onUserReceived(boolean result) {
+                if (result) {
+                    getBook(bookId, new OnBookReceivedListener() {
+                        @Override
+                        public void onBookReceived(boolean result) {
+                            if (result) {
+                                // Process the book
+                                p.cancel();
+                                Toast.makeText(AdminReturnBook.this, "hello ji", Toast.LENGTH_SHORT).show();
+                                if (!U.getBook().contains(Integer.parseInt(editBid4.getEditText().getText().toString().trim()))) {
                                     p.cancel();
-                                    Toast.makeText(AdminReturnBook.this, "Book Returned Successfully !", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    p.cancel();
-                                    Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminReturnBook.this, "Given Book is not issued to the User !", Toast.LENGTH_SHORT).show();
+                                    return;
                                 }
+
+                                List<Integer> l = new ArrayList<Integer>();
+                                l = U.getBook();
+                                int index = l.indexOf(Integer.parseInt(editBid4.getEditText().getText().toString().trim()));
+                                l.remove(index);
+                                U.setBook(l);
+
+                                l = U.getFine();
+                                U.setLeft_fine(U.getLeft_fine() + l.get(index));
+                                l.remove(index);
+                                U.setFine(l);
+
+                                l = U.getRe();
+                                l.remove(index);
+                                U.setRe(l);
+
+                                List<Timestamp> l1 = new ArrayList<>();
+                                l1 = U.getDate();
+                                l1.remove(index);
+                                U.setDate(l1);
+
+
+                                db.collection("User").document(U.getEmail()).set(U).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+
+                                            Toast.makeText(AdminReturnBook.this, "damn", Toast.LENGTH_SHORT).show();
+                                            int i;
+                                            B.setAvailable(B.getAvailable() + 1);
+                                            List<Integer> l1 = new ArrayList<>();
+                                            l1 = B.getUnit();
+                                            i = l1.indexOf(Integer.parseInt(editBid4.getEditText().getText().toString().trim()));
+                                            l1.remove(i);
+                                            B.setUnit(l1);
+
+                                            db.collection("Book").document(String.valueOf(B.getId())).set(B).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+
+                                                        p.cancel();
+                                                        Toast.makeText(AdminReturnBook.this, "Book Returned Successfully !", Toast.LENGTH_SHORT).show();
+
+                                                    } else {
+                                                        p.cancel();
+                                                        Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            p.cancel();
+                                            Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
                             }
-                        });
-                    } else {
-                        p.cancel();
-                        Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
-                    }
+
+
+                        }
+
+                    });
                 }
-            });
-
-        }
-
-
+            }
+        });
     }
 
+
+    interface OnUserReceivedListener {
+        void onUserReceived(boolean result);
+    }
+
+    interface OnBookReceivedListener {
+        void onBookReceived(boolean result);
+    }
 }

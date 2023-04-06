@@ -76,13 +76,12 @@ public class AdminCollectFine extends AppCompatActivity {
                             {
                                 Toast.makeText(AdminCollectFine.this, "Fine Collected !", Toast.LENGTH_SHORT).show();
                                 progressDialog.cancel();
-                                return;
+
                             }
                             else
                             {
                                 Toast.makeText(AdminCollectFine.this, "Try Again !", Toast.LENGTH_SHORT).show();
                                 progressDialog.cancel();
-                                return;
 
                             }
                         }
@@ -169,6 +168,7 @@ public class AdminCollectFine extends AppCompatActivity {
                             progressDialog.cancel();
                             Toast.makeText(AdminCollectFine.this, "Try Again !", Toast.LENGTH_SHORT).show();
                         }
+
                     }
                 });
 

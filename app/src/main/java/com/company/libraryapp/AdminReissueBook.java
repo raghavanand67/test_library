@@ -94,7 +94,7 @@ public class AdminReissueBook extends AppCompatActivity {
                         res1 = true;
                         for (QueryDocumentSnapshot doc : task.getResult())
                             U = doc.toObject(User.class);
-                        return;
+
                     }
                 else if(task.isSuccessful()&&task.getResult().size()!=1) {
 
@@ -107,6 +107,7 @@ public class AdminReissueBook extends AppCompatActivity {
                     p.cancel();
                     Toast.makeText(AdminReissueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 
@@ -208,6 +209,7 @@ public class AdminReissueBook extends AppCompatActivity {
                         p.cancel();
                         Toast.makeText(AdminReissueBook.this, "Please try Again !", Toast.LENGTH_SHORT).show();
                     }
+
                 }
             });
 
