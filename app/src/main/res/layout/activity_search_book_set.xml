@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".SearchBookSet"
     android:orientation="vertical"
-    android:layout_margin="20dp">
+    android:background="@drawable/lib2"
+    android:backgroundTintMode="multiply">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,14 +25,21 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:text="SEARCH BOOK"
-                android:textSize="30dp"
-                android:textColor="@color/colorPrimary"
+                android:textSize="35dp"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="25"
                 android:gravity="center"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editBid3"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp">
 
                 <android.support.design.widget.TextInputEditText
@@ -47,6 +55,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/editTitle3"
                 >
 
@@ -62,6 +73,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/editAuthor3"
                 >
 
@@ -75,29 +89,38 @@
 
 
             <Spinner
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:id="@+id/spinner3"
+                android:background="@drawable/whitebg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 >
 
             </Spinner>
 
 
             <CheckBox
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:id="@+id/onlyAvailable"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Show only available books"/>
+                android:text="Show only available books"
+                android:background="@drawable/whitebg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"/>
 
 
             <Button
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="GO"
+                android:background="@drawable/round_button"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/button3"/>
 
 

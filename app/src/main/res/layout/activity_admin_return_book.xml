@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AdminReturnBook"
     android:orientation="vertical"
-    android:layout_margin="20dp"
+    android:background="@drawable/admin"
     >
 
 
@@ -25,14 +25,22 @@
                 android:layout_height="wrap_content"
                 android:text="RETURN BOOK"
                 android:gravity="center"
-                android:textSize="20dp"
-                android:textColor="@color/colorPrimary"
+                android:fontFamily="sans-serif-black"
+                android:textSize="35dp"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="25"
                 android:layout_marginTop="25dp"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/editBid4">
 
 
@@ -49,6 +57,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/editCardNo2">
 
                 <android.support.design.widget.TextInputEditText
@@ -66,6 +77,9 @@
                 android:id="@+id/returnButton"
                 android:layout_marginTop="20dp"
                 android:text="RETURN"
+                android:background="@drawable/round_button"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:clickable="true"/>

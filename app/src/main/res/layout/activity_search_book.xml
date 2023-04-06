@@ -4,12 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchBook">
+    tools:context=".SearchBook"
+    android:background="@drawable/lib2"
+    android:backgroundTintMode="multiply">
 
 <TextView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:textSize="18dp"
+    android:fontFamily="sans-serif-black"
     android:text="No Such Book !"
     android:textAlignment="center"
 

@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/lib3"
+    android:backgroundTintMode="multiply"
     tools:context=".SignUpActivity">
 
 
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -30,7 +32,12 @@
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
                 android:text="USER REGISTRATION"
-                android:textSize="25dp" />
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="25"
+                android:textSize="30dp" />
 
             <Spinner
                 android:id="@+id/userType"
@@ -38,6 +45,8 @@
                 android:layout_height="30dp"
                 android:layout_margin="30dp"
                 android:layout_marginTop="20dp"
+                android:outlineAmbientShadowColor="#000000"
+                android:outlineSpotShadowColor="#000000"
 
                 ></Spinner>
 
@@ -45,12 +54,14 @@
                 android:id="@+id/editName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:hint="Name"
                     android:inputType="text"
@@ -63,12 +74,14 @@
                 android:id="@+id/editEnrollNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:hint="Stream"
                     android:inputType="text" />
@@ -81,12 +94,14 @@
                 android:id="@+id/editCardNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:hint="UID"
                     android:inputType="text" />
@@ -99,12 +114,14 @@
                 android:id="@+id/editID"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:hint="College Email ID"
                     android:inputType="textEmailAddress" />
@@ -117,12 +134,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 app:passwordToggleEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:fontFamily="sans-serif-medium"
                     android:hint="Password"
                     android:inputType="textPassword" />
@@ -136,12 +155,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 app:passwordToggleEnabled="true">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="20dp"
                     android:hint="Confirm Password"
                     android:inputType="textPassword" />
 
@@ -151,11 +172,13 @@
 
             <CheckBox
                 android:id="@+id/check1"
-                android:layout_width="match_parent"
+                android:layout_width="341dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_marginTop="7dp"
-                android:text="I Agree that the information provided is correct" />
+                android:background="@drawable/whitebg"
+                android:text="I Agree that the information provided is correct"
+                android:textColor="#000000" />
 
             <Button
                 android:id="@+id/buttonRegister"
@@ -178,7 +201,7 @@
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center"
                 android:text="Already Registered ? Sign in "
-                android:textColor="@color/colorPrimary"
+                android:textColor="#FFFFFF"
                 android:textSize="15dp" />
 
 

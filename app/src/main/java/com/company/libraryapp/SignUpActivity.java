@@ -2,6 +2,7 @@ package com.company.libraryapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -73,7 +74,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         list.add("User");
         list.add("Admin");
 
-        ArrayAdapter adapter =new ArrayAdapter(this,android.R.layout.simple_spinner_dropdown_item,list);
+        ArrayAdapter adapter =new ArrayAdapter(this,android.R.layout.simple_spinner_item,list);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userType.setAdapter(adapter);
         userType.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminUpdateBook"
-    android:layout_margin="20dp"
+    android:background="@drawable/admin"
+    android:backgroundTintMode="multiply"
     android:orientation="vertical">
 
     <ScrollView
@@ -24,14 +25,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="UPDATE BOOK"
-                android:textSize="20dp"
-                android:textColor="@color/colorPrimary"
+                android:fontFamily="sans-serif-black"
+                android:textSize="35dp"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="25"
                 android:gravity="center"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editBid2"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp">
 
                 <android.support.design.widget.TextInputEditText
@@ -47,6 +56,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editTitle2"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 >
 
@@ -62,8 +74,11 @@
             <Spinner
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:id="@+id/spinner2"
+                android:background="@drawable/whitebg"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 >
 
             </Spinner>
@@ -72,6 +87,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/editUnits2">
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
@@ -84,8 +102,12 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:text="UPDATE"
+                android:background="@drawable/round_button"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:id="@+id/button2"/>
 
         </LinearLayout>

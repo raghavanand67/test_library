@@ -9,4 +9,11 @@
         <item name="colorBackgroundFloating">@color/background</item>
     </style>
 
+    <style name="WhiteBoxTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">@android:color/white</item>
+        <item name="boxStrokeColor">@android:color/white</item>
+        <!-- Add any other customizations to the style as needed -->
+    </style>
+
+
 </resources>

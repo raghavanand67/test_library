@@ -4,8 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="20dp"
     android:orientation="vertical"
+    android:background="@drawable/lib2"
+    android:backgroundTintMode="multiply"
     tools:context=".AdminHome">
 
     <ScrollView
@@ -25,7 +26,11 @@
                 android:fontFamily="sans-serif-black"
                 android:text="XAVIER'S E-LIBRARY ADMIN PORTAL"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="25"
                 android:textSize="32dp" />
 
             <Button
@@ -36,6 +41,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/searchBook"
                 android:text="Search"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
 
             <Button
@@ -45,6 +52,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/addBook"
                 android:text="Add Book"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
             <Button
                 android:layout_width="200dp"
@@ -53,6 +63,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/removeBook"
                 android:text="Remove Book"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
             <Button
                 android:layout_width="200dp"
@@ -61,6 +74,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/updateBook"
                 android:text="Update"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
             <Button
                 android:layout_width="200dp"
@@ -69,6 +85,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/issueBook"
                 android:text="Issue Book to User"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
             <Button
                 android:layout_width="200dp"
@@ -77,6 +96,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/returnBook"
                 android:text="Return Book from User"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
 
             <Button
@@ -86,6 +108,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/reissueBook"
                 android:text="Re-Issue Book"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
 
             <Button
@@ -95,6 +120,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/collect1"
                 android:text="Collect Fine"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
 
             <Button
@@ -104,6 +132,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/logOut"
                 android:text="Log Out"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:background="@drawable/whitebg"
                 />
 
 

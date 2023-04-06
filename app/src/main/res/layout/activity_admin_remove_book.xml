@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminRemoveBook"
-    android:layout_margin="20dp"
+    android:background="@drawable/admin"
     android:orientation="vertical"
     >
 
@@ -25,16 +25,24 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
                 android:text="REMOVE BOOK"
+                android:fontFamily="sans-serif-black"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="25"
+                android:textSize="32dp"
                 />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/editBid1"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginTop="30dp"
                 >
                 <android.support.design.widget.TextInputEditText
@@ -52,6 +60,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:id="@+id/findBook"
+                android:background="@drawable/round_button"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:text="FIND"/>
 
 
