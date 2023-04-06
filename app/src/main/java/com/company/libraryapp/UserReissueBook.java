@@ -83,6 +83,7 @@ public class UserReissueBook extends AppCompatActivity {
                     p.cancel();
 
                 }
+
             }
         });
 
@@ -217,6 +218,7 @@ public class UserReissueBook extends AppCompatActivity {
                     p.cancel();
                     Toast.makeText(UserReissueBook.this, "Please try Again !", Toast.LENGTH_SHORT).show();
                 }
+
             }
         });
 

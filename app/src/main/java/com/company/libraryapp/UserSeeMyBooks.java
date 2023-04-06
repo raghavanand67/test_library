@@ -96,6 +96,7 @@ public class UserSeeMyBooks extends AppCompatActivity {
                 myBooks.add(new MyBook(U.getBook().get(j),B.getTitle(),B.getType(),U.getDate().get(j).toDate(),d));
                 adapter.notifyDataSetChanged();
                 j++;
+
             }
 
         });
@@ -139,6 +140,7 @@ public class UserSeeMyBooks extends AppCompatActivity {
                         ifNoBook1.setTextSize(18);
                     }
                 }
+
             }
         });
 

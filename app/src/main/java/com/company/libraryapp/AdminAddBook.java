@@ -150,6 +150,7 @@ public class AdminAddBook extends AppCompatActivity implements View.OnClickListe
                                 {   p1.cancel();
                                     Toast.makeText(AdminAddBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
                                 }
+
                             }
                         });
                     }
@@ -159,6 +160,7 @@ public class AdminAddBook extends AppCompatActivity implements View.OnClickListe
                             Toast.makeText(AdminAddBook.this, "This Book is already added \n or Bad Connection !", Toast.LENGTH_SHORT).show();
 
                     }
+
                 }
             });
 

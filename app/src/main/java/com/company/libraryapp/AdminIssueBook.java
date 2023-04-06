@@ -87,194 +87,192 @@ public class AdminIssueBook extends AppCompatActivity {
         }
     }
 
-    private boolean getUser() {
-        db.collection("User").whereEqualTo("card", Integer.parseInt(editCardNo1.getEditText().getText().toString().trim())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+    private void getUser(int cardNo, final AdminReturnBook.OnUserReceivedListener listener) {
+        db.collection("User").whereEqualTo("card", cardNo).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                 if (task.isSuccessful()) {
                     if (task.getResult().size() == 1) {
-                        res1 = true;
                         for (QueryDocumentSnapshot doc : task.getResult())
                             U = doc.toObject(User.class);
-                    } else {
 
-                        res1 = false;
-                        p.cancel();
+                        Toast.makeText(AdminIssueBook.this, "User found", Toast.LENGTH_LONG).show();
+                        listener.onUserReceived(true);
+                    } else {
                         Toast.makeText(AdminIssueBook.this, "No Such User !", Toast.LENGTH_SHORT).show();
+                        listener.onUserReceived(false);
                     }
                 } else {
-                    res1 = false;
-                    p.cancel();
                     Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                    listener.onUserReceived(false);
                 }
-
-
             }
         });
-
-        return res1;
     }
 
-//     + Integer.parseInt(editBid3.getEditText().getText().toString().trim()) / 100).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-//        @Override
-//        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-
-
-    private boolean getBook() {
-
-        db.collection("Book").whereEqualTo("id", Integer.parseInt(editBid3.getEditText().getText().toString().trim())).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void getBook(int bookId, final AdminReturnBook.OnBookReceivedListener listener) {
+        db.collection("Book").whereEqualTo("id", bookId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
-                    if (task.getResult().size()==1) {
-                        res2 = true;
+                    if (task.getResult().size() == 1) {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             B1 = doc.toObject(Book.class);
                         }
-//                        Toast.makeText(AdminIssueBook.this, "Book found", Toast.LENGTH_SHORT).show();
-//                        p.cancel();
+                        Toast.makeText(AdminIssueBook.this, "Book found", Toast.LENGTH_SHORT).show();
+                        // Call the method that processes the book
+                        listener.onBookReceived(true);
                     } else {
-
-                        p.cancel();
-                        res2 = false;
-                        p.cancel();
-//                        String msg1 = String.valueOf(res2);
-//                        Toast.makeText(AdminIssueBook.this, msg1, Toast.LENGTH_SHORT).show();
                         Toast.makeText(AdminIssueBook.this, "No Such Book !", Toast.LENGTH_SHORT).show();
+                        listener.onBookReceived(false);
                     }
                 } else {
-                    res2 = false;
-                    p.cancel();
                     Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                    listener.onBookReceived(false);
                 }
             }
         });
-
-        return res2;
     }
 
     private void issueBook() {
-
-        Log.d("abc","invoked");
-        if (verifyBid() | verifyCard()) {
-            return;
-        }
+        int cardNo = Integer.parseInt(editCardNo1.getEditText().getText().toString().trim());
+        final int bookId = Integer.parseInt(editBid3.getEditText().getText().toString().trim());
         p.setMessage("Please Wait !");
         p.show();
-//        boolean result = getBook();
-//        String msg = String.valueOf(result);
-//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
-        if (getBook()&getUser())
-        {
+        getUser(cardNo, new AdminReturnBook.OnUserReceivedListener() {
+            @Override
+            public void onUserReceived(boolean result) {
+                if (result) {
+                    getBook(bookId, new AdminReturnBook.OnBookReceivedListener() {
+                        @Override
+                        public void onBookReceived(boolean result) {
+                            if (result) {
 //            Toast.makeText(this, "Book and User found", Toast.LENGTH_SHORT).show();
-            p.cancel();
-            if (U.getBook().size() >= 5) {
-                p.cancel();
-                Toast.makeText(AdminIssueBook.this, "User Already Has 5 books issued !", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (B1.getAvailable() == 0) {
-                p.cancel();
-                Toast.makeText(AdminIssueBook.this, "No Units of this Book Available !", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (B1.getUnit().contains(Integer.parseInt(editBid3.getEditText().getText().toString().trim()) % 100)) {
-                p.cancel();
-                Toast.makeText(AdminIssueBook.this, "This Unit is Already Issued !", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            List<Integer> l = new ArrayList<Integer>();
-            l = U.getBook();
-            l.add(Integer.parseInt(editBid3.getEditText().getText().toString().trim()));
-            U.setBook(l);
-            l = U.getFine();
-            l.add(0);
-            U.setFine(l);
-            l = U.getRe();
-            l.add(1);
-            U.setRe(l);
-            List<Timestamp> l1 = new ArrayList<>();
-            l1 = U.getDate();
-            Calendar c = new Calendar() {
-                @Override
-                protected void computeTime() {
-
-                }
-
-                @Override
-                protected void computeFields() {
-
-                }
-
-                @Override
-                public void add(int field, int amount) {
-
-                }
-
-                @Override
-                public void roll(int field, boolean up) {
-
-                }
-
-                @Override
-                public int getMinimum(int field) {
-                    return 0;
-                }
-
-                @Override
-                public int getMaximum(int field) {
-                    return 0;
-                }
-
-                @Override
-                public int getGreatestMinimum(int field) {
-                    return 0;
-                }
-
-                @Override
-                public int getLeastMaximum(int field) {
-                    return 0;
-                }
-            };
-            c=Calendar.getInstance();
-            Date d = c.getTime();
-            Timestamp t = new Timestamp(d);
-            l1.add(t);
-            U.setDate(l1);
-            db.document("User/" +U.getEmail()).set(U).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-
-                        B1.setAvailable(B1.getAvailable()-1);
-                        List<Integer> l1=new ArrayList<>();
-                        l1=B1.getUnit();
-                        l1.add(Integer.parseInt(editBid3.getEditText().getText().toString().trim()) % 100);
-                        B1.setUnit(l1);
-
-                        db.document("Book/" + B1.getId()).set(B1).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
+                                p.cancel();
+                                if (U.getBook().size() >= 5) {
                                     p.cancel();
-                                    Toast.makeText(AdminIssueBook.this, "Book Issued Successfully !", Toast.LENGTH_SHORT).show();
-
-                                } else {
-                                    p.cancel();
-                                    Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(AdminIssueBook.this, "User Already Has 5 books issued !", Toast.LENGTH_SHORT).show();
+                                    return;
                                 }
-                            }
-                        });
-                    } else {
-                        p.cancel();
-                        Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+                                if (B1.getAvailable() == 0) {
+                                    p.cancel();
+                                    Toast.makeText(AdminIssueBook.this, "No Units of this Book Available !", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                if (B1.getUnit().contains(Integer.parseInt(editBid3.getEditText().getText().toString().trim()) % 100)) {
+                                    p.cancel();
+                                    Toast.makeText(AdminIssueBook.this, "This Unit is Already Issued !", Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                List<Integer> l = new ArrayList<Integer>();
+                                l = U.getBook();
+                                l.add(Integer.parseInt(editBid3.getEditText().getText().toString().trim()));
+                                U.setBook(l);
+                                l = U.getFine();
+                                l.add(0);
+                                U.setFine(l);
+                                l = U.getRe();
+                                l.add(1);
+                                U.setRe(l);
+                                List<Timestamp> l1 = new ArrayList<>();
+                                l1 = U.getDate();
+                                Calendar c = new Calendar() {
+                                    @Override
+                                    protected void computeTime() {
 
-        }
+                                    }
+
+                                    @Override
+                                    protected void computeFields() {
+
+                                    }
+
+                                    @Override
+                                    public void add(int field, int amount) {
+
+                                    }
+
+                                    @Override
+                                    public void roll(int field, boolean up) {
+
+                                    }
+
+                                    @Override
+                                    public int getMinimum(int field) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public int getMaximum(int field) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public int getGreatestMinimum(int field) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public int getLeastMaximum(int field) {
+                                        return 0;
+                                    }
+                                };
+                                c = Calendar.getInstance();
+                                Date d = c.getTime();
+                                Timestamp t = new Timestamp(d);
+                                l1.add(t);
+                                U.setDate(l1);
+                                db.collection("User").document(U.getEmail()).set(U).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+
+                                            B1.setAvailable(B1.getAvailable() - 1);
+                                            List<Integer> l1 = new ArrayList<>();
+                                            l1 = B1.getUnit();
+                                            l1.add(Integer.parseInt(editBid3.getEditText().getText().toString().trim()));
+                                            B1.setUnit(l1);
+
+                                            db.collection("Book").document(Integer.toString(B1.getId())).set(B1).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                @Override
+                                                public void onComplete(@NonNull Task<Void> task) {
+                                                    if (task.isSuccessful()) {
+                                                        p.cancel();
+                                                        Toast.makeText(AdminIssueBook.this, "Book Issued Successfully !", Toast.LENGTH_SHORT).show();
+
+                                                    } else {
+                                                        p.cancel();
+                                                        Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+                                            });
+                                        } else {
+                                            p.cancel();
+                                            Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+
+                            }
+
+
+                        }
+
+                    });
+                }
+            }
+        });
+    }
+
+
+    interface OnUserReceivedListener {
+        void onUserReceived(boolean result);
+    }
+
+    interface OnBookReceivedListener {
+        void onBookReceived(boolean result);
     }
 }

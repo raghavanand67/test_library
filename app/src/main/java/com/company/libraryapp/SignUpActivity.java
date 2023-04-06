@@ -279,6 +279,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 {
                    temp=task.getResult().size();
                 }
+
             }
         });
         if(temp==0)
@@ -378,6 +379,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
                 }
 
                 }
+
             }
         });
 
