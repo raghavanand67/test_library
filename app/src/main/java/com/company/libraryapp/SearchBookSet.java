@@ -239,6 +239,11 @@ public class SearchBookSet extends AppCompatActivity {
 
                 }
 
+                else {
+
+                   Toast.makeText(SearchBookSet.this, "Enter valid info", Toast.LENGTH_SHORT).show();
+               }
+
 //               else if(!verifyAuthor()&&verifyCategory()&&!checkBox.isChecked())
 //               {
 //

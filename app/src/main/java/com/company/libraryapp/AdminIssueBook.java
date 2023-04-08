@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -61,7 +62,15 @@ public class AdminIssueBook extends AppCompatActivity {
         issueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                issueBook();
+
+                if (TextUtils.isEmpty(editBid3.getEditText().getText().toString()) | TextUtils.isEmpty(editCardNo1.getEditText().getText().toString())) {
+                    Toast.makeText(AdminIssueBook.this, "Enter Valid info", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Toast.makeText(AdminIssueBook.this, "Hi", Toast.LENGTH_SHORT).show();
+                    issueBook();
+                }
+
             }
         });
     }

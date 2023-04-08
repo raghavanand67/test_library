@@ -394,15 +394,16 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         {
             if(check1.isChecked())
                 buttonRegister.setEnabled(true);
-            else
-                buttonRegister.setEnabled(false);
+            else{
+                buttonRegister.setEnabled(false);}
         }
-        else if(v==buttonRegister)
+         else if(v==buttonRegister)
             registerUser();
 
         else if(v==toSignIn) {
             startActivity(new Intent(getApplicationContext(),SignInActivity.class));
             finish();
         }
+
     }
 }
