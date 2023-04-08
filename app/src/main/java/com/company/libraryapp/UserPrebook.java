@@ -2,7 +2,9 @@ package com.company.libraryapp;
 
 import android.app.ProgressDialog;
 import android.nfc.Tag;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -86,9 +88,19 @@ public class UserPrebook extends AppCompatActivity {
         }
     }
 
+//    db.document("Book/"+U.getBook().get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//        @RequiresApi(api = Build.VERSION_CODES.O)
+//        @Override
+//        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//
+//            B=task.getResult().toObject(Book.class);
 
-    private void getBook(int bookId, final AdminReturnBook.OnBookReceivedListener listener) {
-        db.collection("Book").whereEqualTo("id", bookId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+    private void getBook(int bookId, final UserPrebook.OnBookReceivedListener listener) {
+
+//        DocumentReference docref = db.collection("Book").document(String.valueOf(bookId));
+
+        db.collection("Book/").whereEqualTo("id", bookId).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
@@ -130,54 +142,58 @@ public class UserPrebook extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     U = task.getResult().toObject(User.class);
 
+                    Log.d("Msg", "whether enter or not"+ B1.getTitle());
+
                     Log.d(TAG, "Does user contain book?: " + U.getBook().contains(bookId));
                     if (!U.getBook().contains(bookId)) {
 
-                        if (B1.getAvailable()>0) {
-                            getBook(bookId, new AdminReturnBook.OnBookReceivedListener() {
+
+                            getBook(bookId, new UserPrebook.OnBookReceivedListener() {
                                 @Override
                                 public void onBookReceived(boolean result) {
                                     if (result) {
+                                        if (B1.getPrebook().size()<B1.getAvailable()) {
+                                            Log.d("Msg", "whether enter or not" + (int) B1.getAvailable());
+                                            Log.d("Msg", "whether enter or not" + B1.getTitle());
+                                            cardNo = U.getCard();
+                                            Log.d(TAG, "CardNo: " + cardNo);
+                                            List<Integer> l = new ArrayList<Integer>(B1.getPrebook());
+                                            Log.d(TAG, "L: " + l);
 
+                                            if (!l.contains(cardNo)) {
+                                                p.cancel();
+                                                l.add(cardNo);
+                                                Log.d(TAG, "Updated L: " + l);
+                                                B1.setPrebook(l);
+                                                Log.d(TAG, "Updated prebook: " + B1.getPrebook());
 
-                                        cardNo = U.getCard();
-                                        Log.d(TAG, "CardNo: " + cardNo);
-                                        List<Integer> l = new ArrayList<Integer>(B1.getPrebook());
-                                        Log.d(TAG, "L: " + l);
+                                                DocumentReference bookRef = db.collection("Book").document(String.valueOf(bookId));
+                                                Log.d(TAG, "Bookref: " + bookRef.getId());
+                                                bookRef.update("prebook", l)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d(TAG, "DocumentSnapshot successfully updated!");
+                                                                Toast.makeText(UserPrebook.this, "Pre-book successful. Wait for Admin to issue", Toast.LENGTH_LONG).show();
+                                                            }
+                                                        })
+                                                        .addOnFailureListener(new OnFailureListener() {
+                                                            @Override
+                                                            public void onFailure(@NonNull Exception e) {
+                                                                Log.w(TAG, "Error updating document", e);
+                                                            }
+                                                        });
 
-                                        if (!l.contains(cardNo)) {
+                                            } else {
+                                                p.cancel();
+                                                Toast.makeText(UserPrebook.this, "Book has already been pre-booked by you", Toast.LENGTH_LONG).show();
+
+                                            }
+                                        }else {
                                             p.cancel();
-                                            l.add(cardNo);
-                                            Log.d(TAG, "Updated L: " + l);
-                                            B1.setPrebook(l);
-                                            Log.d(TAG, "Updated prebook: " + B1.getPrebook());
-
-                                            DocumentReference bookRef = db.collection("Book").document(String.valueOf(bookId));
-                                            Log.d(TAG, "Bookref: " + bookRef.getId());
-                                            bookRef.update("prebook", l)
-                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                        @Override
-                                                        public void onSuccess(Void aVoid) {
-                                                            Log.d(TAG, "DocumentSnapshot successfully updated!");
-                                                            Toast.makeText(UserPrebook.this, "Pre-book successful. Wait for Admin to issue", Toast.LENGTH_LONG).show();
-                                                        }
-                                                    })
-                                                    .addOnFailureListener(new OnFailureListener() {
-                                                        @Override
-                                                        public void onFailure(@NonNull Exception e) {
-                                                            Log.w(TAG, "Error updating document", e);
-                                                        }
-                                                    });
-
-                                        } else {
-                                            p.cancel();
-                                            Toast.makeText(UserPrebook.this, "Book has already been pre-booked by you", Toast.LENGTH_LONG).show();
-
+                                            Log.d("MSG", "limit");
+                                            Toast.makeText(UserPrebook.this, "Pre-book limit has been reached for this book", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                    else {
-                                        p.cancel();
-                                    }
 
                                 }
 
@@ -190,14 +206,12 @@ public class UserPrebook extends AppCompatActivity {
 //                    l.add(1);
 //                    U.setRe(l);
 
-                            });
+                            }});
 
 
                         }
-                        else {p.cancel();
-                            Toast.makeText(UserPrebook.this, "Pre-book limit has been reached for this book", Toast.LENGTH_SHORT).show();
-                        }
-                    }
+
+
                     else {
                         p.cancel();
                         Toast.makeText(UserPrebook.this, "You already have this book", Toast.LENGTH_SHORT).show();
@@ -208,5 +222,9 @@ public class UserPrebook extends AppCompatActivity {
 
             }
         });
+    }
+
+    interface OnBookReceivedListener {
+        void onBookReceived(boolean result);
     }
 }
