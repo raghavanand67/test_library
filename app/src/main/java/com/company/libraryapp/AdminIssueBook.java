@@ -5,15 +5,20 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -47,6 +52,7 @@ public class AdminIssueBook extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_issue_book);
         FirebaseApp.initializeApp(this);
+
         Button issueButton = (Button) findViewById(R.id.issueButton);
         editBid3 = (TextInputLayout) findViewById(R.id.editBid3);
         editCardNo1 = (TextInputLayout) findViewById(R.id.editCardNo1);
@@ -56,7 +62,15 @@ public class AdminIssueBook extends AppCompatActivity {
         issueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                issueBook();
+
+                if (TextUtils.isEmpty(editBid3.getEditText().getText().toString()) | TextUtils.isEmpty(editCardNo1.getEditText().getText().toString())) {
+                    Toast.makeText(AdminIssueBook.this, "Enter Valid info", Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Toast.makeText(AdminIssueBook.this, "Hi", Toast.LENGTH_SHORT).show();
+                    issueBook();
+                }
+
             }
         });
     }
@@ -98,13 +112,15 @@ public class AdminIssueBook extends AppCompatActivity {
                         for (QueryDocumentSnapshot doc : task.getResult())
                             U = doc.toObject(User.class);
 
-                        Toast.makeText(AdminIssueBook.this, "User found", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(AdminIssueBook.this, "User found", Toast.LENGTH_LONG).show();
                         listener.onUserReceived(true);
                     } else {
+                        p.cancel();
                         Toast.makeText(AdminIssueBook.this, "No Such User !", Toast.LENGTH_SHORT).show();
                         listener.onUserReceived(false);
                     }
                 } else {
+                    p.cancel();
                     Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
                     listener.onUserReceived(false);
                 }
@@ -121,14 +137,16 @@ public class AdminIssueBook extends AppCompatActivity {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             B1 = doc.toObject(Book.class);
                         }
-                        Toast.makeText(AdminIssueBook.this, "Book found", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(AdminIssueBook.this, "Book found", Toast.LENGTH_SHORT).show();
                         // Call the method that processes the book
                         listener.onBookReceived(true);
                     } else {
+                        p.cancel();
                         Toast.makeText(AdminIssueBook.this, "No Such Book !", Toast.LENGTH_SHORT).show();
                         listener.onBookReceived(false);
                     }
                 } else {
+                    p.cancel();
                     Toast.makeText(AdminIssueBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
                     listener.onBookReceived(false);
                 }
@@ -137,8 +155,11 @@ public class AdminIssueBook extends AppCompatActivity {
     }
 
     private void issueBook() {
-        int cardNo = Integer.parseInt(editCardNo1.getEditText().getText().toString().trim());
+        final int cardNo = Integer.parseInt(editCardNo1.getEditText().getText().toString().trim());
         final int bookId = Integer.parseInt(editBid3.getEditText().getText().toString().trim());
+        if (verifyBid() | verifyCard()) {
+            return;
+        }
         p.setMessage("Please Wait !");
         p.show();
 
@@ -162,7 +183,7 @@ public class AdminIssueBook extends AppCompatActivity {
                                     Toast.makeText(AdminIssueBook.this, "No Units of this Book Available !", Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                if (B1.getUnit().contains(Integer.parseInt(editBid3.getEditText().getText().toString().trim()) % 100)) {
+                                if (B1.getUnit().contains(Integer.parseInt(editBid3.getEditText().getText().toString().trim()))) {
                                     p.cancel();
                                     Toast.makeText(AdminIssueBook.this, "This Unit is Already Issued !", Toast.LENGTH_SHORT).show();
                                     return;
@@ -240,8 +261,39 @@ public class AdminIssueBook extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
+                                                        if (B1.getPrebook().contains(cardNo)) {
+                                                            int index = B1.getPrebook().indexOf(cardNo);
+                                                            Log.d("msg", "Index: " + index);
+                                                            try {
+                                                                B1.getPrebook().remove(index);
+                                                                Log.d("msg", "Card removed. List size: " + B1.getPrebook().size());
+                                                                // TODO: Update Firestore document with new list data
+                                                            } catch (IndexOutOfBoundsException e) {
+                                                                Log.e("msg", "Error removing card: " + e.getMessage());
+                                                                // TODO: Display error message to user
+                                                            }
+
+                                                            DocumentReference bookRef = db.collection("Book").document(String.valueOf(bookId));
+                                                            bookRef.update("prebook", B1.getPrebook())
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void aVoid) {
+                                                                            Log.d("msg", "Firestore document successfully updated with new list data.");
+                                                                        }
+                                                                    })
+                                                                    .addOnFailureListener(new OnFailureListener() {
+                                                                        @Override
+                                                                        public void onFailure(@NonNull Exception e) {
+                                                                            Log.e("msg", "Error updating Firestore document with new list data: " + e.getMessage());
+                                                                        }
+                                                                    });
+
+                                                        }
+
+
                                                         p.cancel();
                                                         Toast.makeText(AdminIssueBook.this, "Book Issued Successfully !", Toast.LENGTH_SHORT).show();
+
 
                                                     } else {
                                                         p.cancel();

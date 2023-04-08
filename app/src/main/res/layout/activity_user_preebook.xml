@@ -23,7 +23,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="ISSUE BOOK"
+                android:text="PRE-BOOK"
                 android:fontFamily="sans-serif-black"
                 android:textSize="35dp"
                 android:textColor="#FFFFFF"
@@ -40,53 +40,32 @@
                 style="@style/WhiteBoxTextInputLayoutStyle"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:id="@+id/editBid3"
-                android:hint="Book ID"
-
                 android:background="@drawable/whitebg"
-                >
+                android:id="@+id/editBid5">
+
 
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:hint="Book ID"
                     android:inputType="number"/>
 
 
             </android.support.design.widget.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/whitebg"
-
-                style="@style/WhiteBoxTextInputLayoutStyle"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:hint="Card No."
-
-                android:id="@+id/editCardNo1">
-
-                <android.support.design.widget.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"/>
-
-
-            </android.support.design.widget.TextInputLayout>
 
             <Button
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textStyle="bold"
-                android:id="@+id/issueButton"
-                android:text="ISSUE"
+                android:id="@+id/prebookButton"
+                android:text="PRE-BOOK"
                 android:layout_marginTop="30dp"
                 android:focusable="false"
                 style="@style/WhiteBoxTextInputLayoutStyle"
                 android:background="@drawable/round_button"
+                android:layout_gravity="center"
+                android:textStyle="bold"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:focusableInTouchMode="false"

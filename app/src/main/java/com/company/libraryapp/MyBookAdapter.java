@@ -37,6 +37,8 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.My_Book_Vi
         my_book_view.bookType1.setText("Type : "+myBooks.get(i).getType());
         my_book_view.bookIdate.setText("Issue Date : "+simpleDateFormat.format(myBooks.get(i).getIdate()));
         my_book_view.bookDdate.setText("Due Date : "+simpleDateFormat.format(myBooks.get(i).getDdate()));
+        my_book_view.fine.setText("Fine : ₹"+myBooks.get(i).getFine());
+
 
     }
 
@@ -47,7 +49,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.My_Book_Vi
 
     class My_Book_View extends RecyclerView.ViewHolder
     {
-        TextView bookName1,bookId1,bookType1,bookIdate,bookDdate;
+        TextView bookName1,bookId1,bookType1,bookIdate,bookDdate,fine;
 
         public My_Book_View(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +58,7 @@ public class MyBookAdapter extends RecyclerView.Adapter<MyBookAdapter.My_Book_Vi
             bookName1=itemView.findViewById(R.id.bookName1);
             bookType1=itemView.findViewById(R.id.bookType1);
             bookDdate=itemView.findViewById(R.id.bookDdate);
+            fine = itemView.findViewById(R.id.fine);
         }
     }
 

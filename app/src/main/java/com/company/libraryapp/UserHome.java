@@ -13,7 +13,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class UserHome extends AppCompatActivity implements View.OnClickListener {
 
@@ -29,17 +33,20 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener 
         seeBook=(Button)findViewById(R.id.seeBook);
         logOut1=(Button)findViewById(R.id.logOut1);
         buttonReissue=(Button)findViewById(R.id.buttonReissue);
+        preBook = (Button) findViewById(R.id.prebook);
+
 
         db=FirebaseFirestore.getInstance();
         searchBook1.setOnClickListener(this);
         seeBook.setOnClickListener(this);
         logOut1.setOnClickListener(this);
         buttonReissue.setOnClickListener(this);
+        preBook.setOnClickListener(this);
     }
 
 
     private TextView title1;
-    private Button searchBook1,seeBook,logOut1,buttonReissue;
+    private Button searchBook1,seeBook,logOut1,buttonReissue,preBook;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore db;
 
@@ -80,6 +87,10 @@ public class UserHome extends AppCompatActivity implements View.OnClickListener 
         if(v==buttonReissue)
         {
             startActivity(new Intent(getApplicationContext(),UserReissueBook.class));
+        }
+        if(v==preBook)
+        {
+            startActivity(new Intent(getApplicationContext(),UserPrebook.class));
         }
     }
 }

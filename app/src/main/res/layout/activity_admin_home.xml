@@ -24,13 +24,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
-                android:text="XAVIER'S E-LIBRARY ADMIN PORTAL"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
                 android:shadowColor="#000000"
                 android:shadowDx="5"
                 android:shadowDy="5"
                 android:shadowRadius="25"
+                android:text="XAVIER'S E-LIBRARY ADMIN PORTAL"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textSize="32dp" />
 
             <Button
@@ -101,17 +101,17 @@
                 android:background="@drawable/whitebg"
                 />
 
-            <Button
-                android:layout_width="200dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:id="@+id/reissueBook"
-                android:text="Re-Issue Book"
-                android:layout_marginTop="10dp"
-                android:textColor="#000000"
-                android:background="@drawable/whitebg"
-                />
+<!--            <Button-->
+<!--                android:layout_width="200dp"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/reissueBook"-->
+<!--                android:text="Re-Issue Book"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textColor="#000000"-->
+<!--                android:background="@drawable/whitebg"-->
+<!--                />-->
 
             <Button
                 android:layout_width="200dp"
@@ -119,22 +119,23 @@
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:id="@+id/collect1"
-                android:text="Collect Fine"
+                android:text="Check Pre-Bookings"
                 android:layout_marginTop="10dp"
                 android:textColor="#000000"
                 android:background="@drawable/whitebg"
                 />
 
             <Button
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:id="@+id/logOut"
                 android:text="Log Out"
-                android:layout_marginTop="10dp"
-                android:textColor="#000000"
-                android:background="@drawable/whitebg"
+                android:layout_marginTop="30dp"
+                android:textColor="#FFFF"
+                android:textStyle="bold"
+                android:background="@drawable/logout_button"
                 />
 
 

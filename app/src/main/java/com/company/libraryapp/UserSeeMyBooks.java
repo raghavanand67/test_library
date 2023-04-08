@@ -1,12 +1,15 @@
 package com.company.libraryapp;
 
 import android.app.ProgressDialog;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,9 +19,13 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,6 +40,8 @@ public class UserSeeMyBooks extends AppCompatActivity {
     private User U = new User();
     private Book B = new Book();
     private ProgressDialog progressDialog;
+    private long daysBetween;
+    int fine = 0;
 
 
     List<Integer> l = new ArrayList<Integer>();
@@ -41,6 +50,9 @@ public class UserSeeMyBooks extends AppCompatActivity {
     public int i,j;
 
     private List<MyBook> myBooks=new ArrayList<>();
+
+    private static final String TAG = "MyTag";
+
 
 
     RecyclerView recyclerView;
@@ -78,25 +90,53 @@ public class UserSeeMyBooks extends AppCompatActivity {
     {
         j=0;
 
-        db.collection("Book"+U.getBook().get(i)/100).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.document("Book/"+U.getBook().get(i)).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
 
-                for (QueryDocumentSnapshot doc : task.getResult())
-                    B = doc.toObject(Book.class);
+                B=task.getResult().toObject(Book.class);
 
                 Date d = new Date();
+                Date i = new Date();
                 d=U.getDate().get(j).toDate();
+                Log.d("msg", "Date-pre: "+d);
                 Calendar c=Calendar.getInstance();
                 c.setTime(d);
                 c.add(Calendar.DAY_OF_MONTH,14);
                 d=c.getTime();
 
-                myBooks.add(new MyBook(U.getBook().get(j),B.getTitle(),B.getType(),U.getDate().get(j).toDate(),d));
+                i=U.getDate().get(j).toDate();
+
+                LocalDate currentDate = LocalDate.now();
+
+                LocalDate date1 = i.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                LocalDate date2 = d.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+                if(currentDate.isAfter(date2)) {
+                    daysBetween = ChronoUnit.DAYS.between(date2, currentDate);
+                    Log.d("msg", "Working");
+                    Log.d("msg", "Days: "+daysBetween);
+                    fine = (int) (10*daysBetween);
+                    Log.d("msg", "Fine: "+fine);
+
+                }
+
+                else{
+                    daysBetween = 0;
+                    fine= (int) (10*daysBetween);
+                }
+
+
+                Log.d("msg", "date1: "+currentDate);
+                Log.d("msg", "date2: "+date2);
+
+
+
+                myBooks.add(new MyBook(U.getBook().get(j),B.getTitle(),B.getType(),U.getDate().get(j).toDate(),d,fine));
                 adapter.notifyDataSetChanged();
                 j++;
-
             }
 
         });
@@ -109,21 +149,42 @@ public class UserSeeMyBooks extends AppCompatActivity {
     {
 
 
-        db.collection("User" + firebaseAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.document("User/" + firebaseAuth.getCurrentUser().getEmail()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
 
 
-                    for (QueryDocumentSnapshot doc : task.getResult())
-                        U = doc.toObject(User.class);
+                    U = task.getResult().toObject(User.class);
 
-                    List<Integer> books = U.getBook();
-                    String bookList = TextUtils.join(", ", books);
-                    Toast.makeText(UserSeeMyBooks.this, bookList, Toast.LENGTH_LONG).show();
+
+
+                    String email = "sarthak.mirji@xaviers.edu.in";
+                    Query query = db.collection("User").whereEqualTo("email", email);
+                    Log.d(TAG, "Query: " + query.toString());
+
+//                    Log.d(TAG, "Number of documents: " + task.getResult().size());
+
+                        Toast.makeText(UserSeeMyBooks.this, "Damn damn damn", Toast.LENGTH_LONG).show();
+                        Log.d("DocObject", "Msg: ");
+//                        Log.d(TAG, "User document data: " + U.getData());
+                        if (U == null) {
+                            Log.w(TAG, "Failed to map document to User object");
+                        } else {
+                            Log.d(TAG, "User object: " + U.toString());
+                        }
+
+                    }
+                    Toast.makeText(UserSeeMyBooks.this, firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
+
+
+
+                    Log.d("User", "Books: " + U.getBook().toString());
+                    Log.d("User",  U.toString());
+                    Log.d("User", "Name: "+U.getName());
+
                     if (!U.getBook().isEmpty()) {
 
-                        Toast.makeText(UserSeeMyBooks.this, "eh", Toast.LENGTH_SHORT).show();
                         l = U.getBook();
                         for (i = 0; i < l.size(); i++) {
 
@@ -140,9 +201,8 @@ public class UserSeeMyBooks extends AppCompatActivity {
                         ifNoBook1.setTextSize(18);
                     }
                 }
+            });
 
-            }
-        });
 
     }
 

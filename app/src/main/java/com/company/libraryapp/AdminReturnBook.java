@@ -94,13 +94,15 @@ public class AdminReturnBook extends AppCompatActivity {
                         for (QueryDocumentSnapshot doc : task.getResult())
                             U = doc.toObject(User.class);
 
-                        Toast.makeText(AdminReturnBook.this, "User found", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(AdminReturnBook.this, "User found", Toast.LENGTH_LONG).show();
                         listener.onUserReceived(true);
                     } else {
+                        p.cancel();
                         Toast.makeText(AdminReturnBook.this, "No Such User !", Toast.LENGTH_SHORT).show();
                         listener.onUserReceived(false);
                     }
                 } else {
+                    p.cancel();
                     Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
                     listener.onUserReceived(false);
                 }
@@ -117,16 +119,19 @@ public class AdminReturnBook extends AppCompatActivity {
                         for (QueryDocumentSnapshot doc : task.getResult()) {
                             B = doc.toObject(Book.class);
                         }
-                        Toast.makeText(AdminReturnBook.this, "Book found", Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(AdminReturnBook.this, "Book found", Toast.LENGTH_SHORT).show();
                         // Call the method that processes the book
                         listener.onBookReceived(true);
                     } else {
+                        p.cancel();
                         Toast.makeText(AdminReturnBook.this, "No Such Book !", Toast.LENGTH_SHORT).show();
                         listener.onBookReceived(false);
                     }
                 } else {
+                    p.cancel();
                     Toast.makeText(AdminReturnBook.this, "Try Again !", Toast.LENGTH_SHORT).show();
                     listener.onBookReceived(false);
+
                 }
             }
         });
@@ -148,7 +153,6 @@ public class AdminReturnBook extends AppCompatActivity {
                             if (result) {
                                 // Process the book
                                 p.cancel();
-                                Toast.makeText(AdminReturnBook.this, "hello ji", Toast.LENGTH_SHORT).show();
                                 if (!U.getBook().contains(Integer.parseInt(editBid4.getEditText().getText().toString().trim()))) {
                                     p.cancel();
                                     Toast.makeText(AdminReturnBook.this, "Given Book is not issued to the User !", Toast.LENGTH_SHORT).show();
@@ -181,7 +185,6 @@ public class AdminReturnBook extends AppCompatActivity {
                                     public void onComplete(@NonNull Task<Void> task) {
                                         if (task.isSuccessful()) {
 
-                                            Toast.makeText(AdminReturnBook.this, "damn", Toast.LENGTH_SHORT).show();
                                             int i;
                                             B.setAvailable(B.getAvailable() + 1);
                                             List<Integer> l1 = new ArrayList<>();
@@ -194,6 +197,7 @@ public class AdminReturnBook extends AppCompatActivity {
                                                 @Override
                                                 public void onComplete(@NonNull Task<Void> task) {
                                                     if (task.isSuccessful()) {
+
 
                                                         p.cancel();
                                                         Toast.makeText(AdminReturnBook.this, "Book Returned Successfully !", Toast.LENGTH_SHORT).show();

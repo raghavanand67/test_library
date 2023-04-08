@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".AdminIssueBook"
     android:orientation="vertical"
-    android:layout_margin="20dp"
+    android:background="@drawable/lib2"
+    android:backgroundTintMode="multiply"
     >
 
     <ScrollView
@@ -22,22 +23,33 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="PREBOOK A BOOK"
-                android:textColor="@color/colorPrimary"
-                android:gravity="center"
-                android:textSize="20dp"/>
+                android:text="CHECK PRE-BOOK"
+                android:fontFamily="sans-serif-black"
+                android:textSize="35dp"
+                android:textColor="#FFFFFF"
+                android:shadowColor="#000000"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="25"
+                android:gravity="center" />
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="30dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/editBid3">
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/editBid3"
+                android:hint="Book ID"
+
+                android:background="@drawable/whitebg"
+                >
 
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Book ID"
                     android:inputType="number"/>
 
 
@@ -47,24 +59,37 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:id="@+id/editCardNo1">
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:id="@+id/editCardNo1"
+                android:hint="Card No."
+
+
+                android:background="@drawable/whitebg"
+                >
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Card No."
                     android:inputType="number"/>
 
 
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/issueButton"
-                android:text="PREBOOK FOR 24 HOURS"
-                android:layout_marginTop="20dp"
+                android:text="CHECK"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:layout_marginTop="30dp"
                 android:focusable="false"
+                style="@style/WhiteBoxTextInputLayoutStyle"
+                android:background="@drawable/round_button"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:focusableInTouchMode="false"
                 android:clickable="true"/>
 

@@ -37,7 +37,7 @@ public class AdminHome extends AppCompatActivity implements View.OnClickListener
         issueBook=(Button)findViewById(R.id.issueBook);
         returnBook=(Button)findViewById(R.id.returnBook);
         logOut=(Button)findViewById(R.id.logOut);
-        reissueButton=(Button)findViewById(R.id.reissueBook);
+//        reissueButton=(Button)findViewById(R.id.reissueBook);
         db=FirebaseFirestore.getInstance();
 
         searchBook.setOnClickListener(this);
@@ -48,7 +48,7 @@ public class AdminHome extends AppCompatActivity implements View.OnClickListener
         returnBook.setOnClickListener(this);
         logOut.setOnClickListener(this);
         collect1.setOnClickListener(this);
-        reissueButton.setOnClickListener(this);
+//        reissueButton.setOnClickListener(this);
 
     }
     @Override
@@ -102,12 +102,12 @@ public class AdminHome extends AppCompatActivity implements View.OnClickListener
         }
         if(v==collect1)
         {
-            startActivity(new Intent(getApplicationContext(),AdminCollectFine.class));
+            startActivity(new Intent(getApplicationContext(),AdminSeePrebook.class));
         }
-        if(v==reissueButton)
-        {
-            startActivity(new Intent(getApplicationContext(),AdminReissueBook.class));
-        }
+//        if(v==reissueButton)
+//        {
+//            startActivity(new Intent(getApplicationContext(),AdminReissueBook.class));
+//        }
 
 
     }
