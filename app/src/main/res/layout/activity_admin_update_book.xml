@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AdminUpdateBook"
-    android:background="@drawable/admin"
+    android:background="@drawable/lib2"
     android:backgroundTintMode="multiply"
     android:orientation="vertical">
 
@@ -41,13 +41,16 @@
                 style="@style/WhiteBoxTextInputLayoutStyle"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginTop="30dp">
+                android:layout_marginTop="30dp"
+                android:background="@drawable/whitebg"
+
+                android:hint="ID">
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
-                    android:hint="ID" />
+                     />
 
             </android.support.design.widget.TextInputLayout>
 
@@ -59,13 +62,16 @@
                 style="@style/WhiteBoxTextInputLayoutStyle"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:hint="Title"
                 android:layout_marginTop="10dp"
+                android:background="@drawable/whitebg"
+
                 >
 
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Title"
+
                     android:inputType="text"
                     />
             </android.support.design.widget.TextInputLayout>
@@ -73,7 +79,7 @@
 
             <Spinner
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:layout_marginTop="15dp"
                 android:id="@+id/spinner2"
                 android:background="@drawable/whitebg"
@@ -89,19 +95,23 @@
                 android:layout_marginTop="10dp"
                 style="@style/WhiteBoxTextInputLayoutStyle"
                 android:layout_marginLeft="10dp"
+                android:hint="No. of Units"
+                android:background="@drawable/whitebg"
                 android:layout_marginRight="10dp"
                 android:id="@+id/editUnits2">
                 <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
                     android:inputType="number"
                     android:layout_height="wrap_content"
-                    android:hint="No. of Units"/>
+                    />
             </android.support.design.widget.TextInputLayout>
 
 
             <Button
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
                 android:layout_marginTop="30dp"
                 android:text="UPDATE"
                 android:background="@drawable/round_button"

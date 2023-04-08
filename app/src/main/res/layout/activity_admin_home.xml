@@ -101,17 +101,17 @@
                 android:background="@drawable/whitebg"
                 />
 
-            <Button
-                android:layout_width="200dp"
-                android:gravity="center"
-                android:layout_gravity="center"
-                android:layout_height="wrap_content"
-                android:id="@+id/reissueBook"
-                android:text="Re-Issue Book"
-                android:layout_marginTop="10dp"
-                android:textColor="#000000"
-                android:background="@drawable/whitebg"
-                />
+<!--            <Button-->
+<!--                android:layout_width="200dp"-->
+<!--                android:gravity="center"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:id="@+id/reissueBook"-->
+<!--                android:text="Re-Issue Book"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:textColor="#000000"-->
+<!--                android:background="@drawable/whitebg"-->
+<!--                />-->
 
             <Button
                 android:layout_width="200dp"
@@ -126,15 +126,16 @@
                 />
 
             <Button
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:layout_height="wrap_content"
                 android:id="@+id/logOut"
                 android:text="Log Out"
-                android:layout_marginTop="10dp"
-                android:textColor="#000000"
-                android:background="@drawable/whitebg"
+                android:layout_marginTop="30dp"
+                android:textColor="#FFFF"
+                android:textStyle="bold"
+                android:background="@drawable/logout_button"
                 />
 
 
