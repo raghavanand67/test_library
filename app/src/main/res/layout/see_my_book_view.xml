@@ -13,37 +13,47 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <TextView
             android:id="@+id/bookId1"
-            android:textColor="#000"
-
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+
+            android:layout_height="wrap_content"
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/bookName1"
-            android:textColor="#000"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/bookType1"
 
-            android:textColor="#000"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/bookIdate"
-            android:textColor="#000"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000" />
+
         <TextView
             android:id="@+id/bookDdate"
-            android:textColor="#000"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textColor="#000" />
+
+        <TextView
+            android:id="@+id/fine"
+            android:layout_width="match_parent"
+            android:layout_height="29dp"
+            android:textColor="#000" />
 
 
     </LinearLayout>

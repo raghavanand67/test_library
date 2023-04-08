@@ -4,17 +4,18 @@ import java.util.Date;
 
 public class MyBook {
 
-    private int Bid;
+    private int Bid, Fine;
     private String Title,Type;
     private Date Idate,Ddate;
 
 
-    public MyBook(int bid, String title, String type, Date idate, Date ddate) {
+    public MyBook(int bid, String title, String type, Date idate, Date ddate, int fine) {
         Bid = bid;
         Title = title;
         Type = type;
         Idate = idate;
         Ddate = ddate;
+        Fine = fine;
     }
 
     public MyBook() {
@@ -58,5 +59,13 @@ public class MyBook {
 
     public void setDdate(Date ddate) {
         Ddate = ddate;
+    }
+
+    public int getFine() {
+        return Fine;
+    }
+
+    public void setFine(int fine) {
+        Fine = fine;
     }
 }

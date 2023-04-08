@@ -102,7 +102,7 @@ public class AdminHome extends AppCompatActivity implements View.OnClickListener
         }
         if(v==collect1)
         {
-            startActivity(new Intent(getApplicationContext(),AdminCollectFine.class));
+            startActivity(new Intent(getApplicationContext(),AdminSeePrebook.class));
         }
         if(v==reissueButton)
         {

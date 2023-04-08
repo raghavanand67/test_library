@@ -1,13 +1,16 @@
 package com.company.libraryapp;
 
 import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.PropertyName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class User {
+public class User implements Serializable {
     public User() {
     }
+
 
     private String name, email;
     private List<Integer> book = new ArrayList<Integer>();
@@ -39,10 +42,12 @@ public class User {
     private int left_fine;
 
 
+    @PropertyName("type")
     public int getType() {
         return type;
     }
 
+    @PropertyName("type")
     public void setType(int type) {
         this.type = type;
     }
@@ -56,26 +61,32 @@ public class User {
         this.card = card;
         this.type = type;
     }
-
+    @PropertyName("name")
     public String getName() {
         return name;
     }
 
+    @PropertyName("name")
     public void setName(String name) {
         this.name = name;
     }
 
+    @PropertyName("email")
     public String getEmail() {
         return email;
     }
-
+    @PropertyName("email")
     public void setEmail(String email) {
         this.email = email;
     }
 
+
+    @PropertyName("book")
     public List<Integer> getBook() {
         return book;
     }
+
+    @PropertyName("book")
 
     public void setBook(List<Integer> book) {
         this.book = book;
@@ -113,14 +124,25 @@ public class User {
         this.enroll = enroll;
     }
 
+    @PropertyName("card")
     public int getCard() {
         return card;
     }
 
+    @PropertyName("card")
     public void setCard(int card) {
         this.card = card;
     }
+
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", book=" + book +
+                '}';
+    }
 }
+
+
 
 
 

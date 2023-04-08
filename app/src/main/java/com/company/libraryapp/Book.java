@@ -8,6 +8,7 @@ public class Book {
     private String title, author, type;
     private int total = 0, available = 0, id;
     private List<Integer> unit = new ArrayList<Integer>();
+    private List<Integer> prebook = new ArrayList<Integer>();
 
 
     public Book() {
@@ -78,5 +79,14 @@ public class Book {
     public void setUnit(List<Integer> unit) {
         this.unit = unit;
     }
+
+    public List<Integer> getPrebook() {
+        return prebook;
+    }
+
+    public void setPrebook(List<Integer> prebook) {
+        this.prebook = prebook;
+    }
+
 }
 

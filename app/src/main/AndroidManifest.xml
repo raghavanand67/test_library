@@ -25,6 +25,12 @@
         <activity android:name="com.company.libraryapp.AdminRemoveBook" />
         <activity android:name="com.company.libraryapp.AdminAddBook" />
         <activity android:name="com.company.libraryapp.UserHome"/>
+        <activity
+            android:name=".UserPrebook"
+            android:label="User Prebook" />
+        <activity
+            android:name=".AdminSeePrebook"
+            android:label="User Prebook" />
         <activity android:name="com.company.libraryapp.AdminHome"/>
         <activity android:name="com.company.libraryapp.SignUpActivity"/>
         <activity android:name="com.company.libraryapp.SignInActivity">
